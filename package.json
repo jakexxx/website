@@ -1,0 +1,65 @@
+{
+  "name": "wesjetpkg",
+  "version": "0.0.0",
+  "license": "MIT",
+  "private": true,
+  "workspaces": [
+    "examples/*",
+    "apps/www",
+    "cli/*",
+    "cli/@wesjet/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "postinstall": "ts-patch install -s && ts-patch --persist",
+    "postinstall:wesjet": "yarn workspaces foreach --verbose --include \"examples-*\" exec yarn wesjet postinstall",
+    "build": "tsc -b base.json",
+    "build:clean": "bash -c 'rm -rf cli/*/dist cli/@wesjet/*/dist'",
+    "lint": "run format:prettier && run format:eslint",
+    "check:prettier": "prettier . -c",
+    "check:eslint": "eslint . --ext .ts --max-warnings=0",
+    "format:prettier": "prettier . -w",
+    "format:eslint": "eslint . --ext .ts --fix",
+    "all": "run build:clean && run build && yarn workspace wesjet-nextjs-plugin run prepack",
+    "test": "CI=true VITEST_SEGFAULT_RETRY=3 yarn workspaces foreach --parallel run test",
+    "dev": "turbo run dev --parallel",
+    "dev:www": "turbo run dev --filter=www --parallel",
+    "dev:nww": "turbo run dev filter --filter=nextjs-with-wesjet --parallel"
+  },
+  "author": "Wesbitty, Inc",
+  "keywords": [
+    "Wesjet",
+    "Bundler",
+    "Typescript",
+    "Maker"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wesbitty/wesjetpkg"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.25.0",
+    "@effect-ts/tracing-plugin": "^0.20.0",
+    "@types/prettier": "^2.7.1",
+    "@typescript-eslint/eslint-plugin": "^5.39.0",
+    "@typescript-eslint/parser": "^5.39.0",
+    "eslint": "^8.24.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-simple-import-sort": "^8.0.0",
+    "prettier": "^2.7.1",
+    "ts-patch": "^2.0.2",
+    "turbo": "^1.6.3",
+    "typescript": "^4.8.4"
+  },
+  "resolutions": {
+    "esbuild": "0.15.7",
+    "wesjet": "workspace:*",
+    "@wesjet/*": "workspace:*",
+    "wesjet-simple-import-hooks": "workspace:*",
+    "wesjet-nextjs-plugin": "workspace:*",
+    "rxjs": "^7.1.0"
+  },
+  "packageManager": "yarn@3.2.4"
+}

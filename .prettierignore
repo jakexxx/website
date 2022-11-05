@@ -1,0 +1,12 @@
+!/.*
+/build/
+.yarn
+**/fixtures/**/*.yaml
+**/dist/*
+**/.nyc_output/*
+node_modules
+apps/
+examples/
+dist*
+
+

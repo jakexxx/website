@@ -1,0 +1,14 @@
+!/.*
+/build/
+apps/
+examples/
+node_modules
+.next
+dist*
+out
+.yarn
+.tmp*
+/tmp
+*.tsbuildinfo
+.nyc_output
+!tap-snapshots/dist/*
